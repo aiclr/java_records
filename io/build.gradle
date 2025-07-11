@@ -10,46 +10,69 @@ plugins {
     id 'java-library'
 }
 
-group 'cn.aiclr'
-version '1.0.0-SNAPSHOT'
+group = 'cn.aiclr'
+version = '1.0.0-SNAPSHOT'
 
 repositories {
-    flatDir {
-        dirs 'libs'
-    }
+    flatDir { dirs('libs') }
     mavenLocal()
     // 阿里云镜像 (推荐)
-    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url = 'https://maven.aliyun.com/repository/public' }
     // 阿里云Google仓库（Android项目必需）
-    maven { url 'https://maven.aliyun.com/repository/google' }
+    maven { url = 'https://maven.aliyun.com/repository/google' }
     // 阿里云Spring仓库（Spring项目可选）
-    maven { url 'https://maven.aliyun.com/repository/spring' }
+    maven { url = 'https://maven.aliyun.com/repository/spring' }
     // 腾讯云镜像 (备选)
-    maven { url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public' }
+    maven { url = 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public' }
     // 华为云镜像 (备选)
-    maven { url 'https://repo.huaweicloud.com/repository/maven' }
+    maven { url = 'https://repo.huaweicloud.com/repository/maven' }
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
 dependencies {
     implementation libs.logback
+
+    testImplementation(libs.junitJupiter)
+    testRuntimeOnly(libs.junitPlatformLauncher)
 }
 
-testing {
-    // Configure the built-in test suite
-    suites {
-        test(JvmTestSuite) {
-            useJUnitJupiter('5.11.3')
-            targets.all {
-                tasks.test {
-                    maxParallelForks = Runtime.getRuntime().availableProcessors() / 2
-                    systemProperty('junit.jupiter.execution.parallel.enabled', 'true')
-//                    systemProperty('junit.jupiter.execution.parallel.mode.default', 'concurrent')
-                }
-            }
-        }
-    }
+// https://docs.gradle.org/8.14.3/javadoc/org/gradle/api/tasks/testing/Test.html#useJUnitPlatform
+test {
+    useJUnitPlatform()
+    systemProperty('junit.jupiter.execution.parallel.enabled', 'true')
+    systemProperty('junit.jupiter.execution.parallel.mode.default', 'concurrent')
+    maxParallelForks((Runtime.getRuntime().availableProcessors() / 2).intValue())
+
+    // explicitly include or exclude tests
+//    include 'org/foo/**'
+//    exclude 'org/boo/**'
+
+    // show standard out and standard error of the test JVM(s) on the console
+//    testLogging.showStandardStreams = true
+
+    // set heap size for the test JVM(s)
+//    minHeapSize = "128m"
+//    maxHeapSize = "512m"
+
+    // set JVM arguments for the test JVM(s)
+//    jvmArgs('-XX:MaxPermSize=256m')
+
+    // listen to events in the test execution lifecycle
+//    beforeTest { descriptor ->
+//        logger.lifecycle("Running test: " + descriptor)
+//    }
+
+    // fail the 'test' task on the first test failure
+//    failFast = true
+
+    // skip an actual test execution
+//    dryRun = true
+
+    // listen to standard out and standard error of the test JVM(s)
+//    onOutput { descriptor, event ->
+//        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+//    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
