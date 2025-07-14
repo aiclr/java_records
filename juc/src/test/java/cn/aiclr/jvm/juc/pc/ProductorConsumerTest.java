@@ -2,13 +2,14 @@ package cn.aiclr.jvm.juc.pc;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
- * 生产者消费者模式
- * <p>
+ * <pre>生产者消费者模式
  * synchronized & lock
  * 多线程等待唤醒机制
- * <p>
+ *
  * 易出现问题
  * 1 不添加等待唤醒机制，当生产者发现仓库满了，还会一直进行生产逻辑；同理消费者发现仓库为空，还会一直进行消费逻辑
  * 2 使用if-else控制唤醒
@@ -46,6 +47,7 @@ import org.junit.jupiter.api.Test;
  * Condition condition = lock.newCondition();
  *
  */
+@Execution(ExecutionMode.SAME_THREAD)
 class ProductorConsumerTest {
 
     @Test

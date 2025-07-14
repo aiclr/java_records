@@ -86,24 +86,29 @@ class CallableInterfaceTest {
     @Test
     @DisplayName("与 ExecutorService 结合使用")
     void executorServiceTest() {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        CallableInterfaceForInteger task1 = new CallableInterfaceForInteger();
-        task1.setStart(1);
-        task1.setEnd(49);
-        CallableInterfaceForInteger task2 = new CallableInterfaceForInteger();
-        task2.setStart(50);
-        task2.setEnd(100);
-
-        List<Future<Integer>> futureList = new ArrayList<>();
-        futureList.add(executorService.submit(task1));
-        futureList.add(executorService.submit(task2));
-        Integer result = 0;
+        ExecutorService executorService = null;
+        List<Future<Integer>> futureList = null;
         try {
+            executorService = Executors.newFixedThreadPool(2);
+            CallableInterfaceForInteger task1 = new CallableInterfaceForInteger();
+            task1.setStart(1);
+            task1.setEnd(49);
+            CallableInterfaceForInteger task2 = new CallableInterfaceForInteger();
+            task2.setStart(50);
+            task2.setEnd(100);
+
+            futureList = new ArrayList<>();
+
+            futureList.add(executorService.submit(task1));
+            futureList.add(executorService.submit(task2));
+            Integer result = 0;
+
             for (Future<Integer> future : futureList) {
                 if (Objects.nonNull(future)) {
                     result += future.get(800, TimeUnit.MILLISECONDS);
                 }
             }
+            Assertions.assertEquals(5050, result);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
@@ -116,8 +121,11 @@ class CallableInterfaceTest {
             //超时中断任务
             futureList.stream().filter(Objects::nonNull).forEach(it -> it.cancel(true));
             logger.error("{}", e.getMessage(), e);
+        } finally {
+            if (executorService != null) {
+                executorService.shutdownNow();
+            }
         }
-        Assertions.assertEquals(5050, result);
     }
 
     /**
