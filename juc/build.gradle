@@ -42,7 +42,7 @@ test {
     useJUnitPlatform()
     systemProperty('junit.jupiter.execution.parallel.enabled', 'true')
     systemProperty('junit.jupiter.execution.parallel.mode.default', 'concurrent')
-    maxParallelForks((Runtime.getRuntime().availableProcessors() / 2).intValue())
+    maxParallelForks = Runtime.getRuntime().availableProcessors() / 2 as int
 
     // explicitly include or exclude tests
 //    include 'org/foo/**'
