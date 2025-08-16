@@ -1,0 +1,5 @@
+package cn.aiclr.jvm.suggestions.book.java151.chapter07.du;
+
+public interface Staff {
+    int getSalary();
+}

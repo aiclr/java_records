@@ -1,0 +1,87 @@
+package cn.aiclr.jvm.suggestions.book.java151.chapter01;
+
+/**
+ * <pre>15.break万万不可忘
+ * {@link cn.aiclr.jvm.suggestions.book.java151.chapter01.AoTest#intToChinese()}
+ */
+public class Ao {
+    public static String intToChinese(int n) {
+        String chineseNumber;
+        //加上break示范
+        switch (n) {
+            case 0: {
+                chineseNumber = "零";
+                break;
+            }
+            case 1: {
+                chineseNumber = "壹";
+                break;
+            }
+            case 2: {
+                chineseNumber = "贰";
+                break;
+            }
+            case 3: {
+                chineseNumber = "叁";
+                break;
+            }
+            case 4: {
+                chineseNumber = "肆";
+                break;
+            }
+            case 5: {
+                chineseNumber = "伍";
+                break;
+            }
+            case 6: {
+                chineseNumber = "陆";
+                break;
+            }
+            case 7: {
+                chineseNumber = "柒";
+                break;
+            }
+            case 8: {
+                chineseNumber = "捌";
+                break;
+            }
+            case 9: {
+                chineseNumber = "玖";
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("参数不合法");
+        }
+        return chineseNumber;
+    }
+
+    public static String intToChineseWithError(int n) {
+        String chineseNumber = "";
+        //错误示范
+        switch (n) {
+            case 0:
+                chineseNumber = "零";
+            case 1:
+                chineseNumber = "壹";
+            case 2:
+                chineseNumber = "贰";
+            case 3:
+                chineseNumber = "叁";
+            case 4:
+                chineseNumber = "肆";
+            case 5:
+                chineseNumber = "伍";
+            case 6:
+                chineseNumber = "陆";
+            case 7:
+                chineseNumber = "柒";
+            case 8:
+                chineseNumber = "捌";
+            case 9:
+                chineseNumber = "玖";
+
+        }
+        return chineseNumber;
+    }
+
+}
