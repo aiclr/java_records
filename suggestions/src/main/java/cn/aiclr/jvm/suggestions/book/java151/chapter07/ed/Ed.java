@@ -1,4 +1,4 @@
-package cn.aiclr.jvm.suggestions.book.java151.chapter07;
+package cn.aiclr.jvm.suggestions.book.java151.chapter07.ed;
 
 /**
  * <pre>108.反射让模板方法模式更强大
