@@ -1,0 +1,9 @@
+package cn.aiclr.jvm.designpattern.behavior.strategy;
+
+public class FlyNo implements Fly {
+
+    @Override
+    public void fly() {
+        log.info("不会飞");
+    }
+}

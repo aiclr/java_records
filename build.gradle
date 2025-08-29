@@ -1,0 +1,21 @@
+tasks.register('cleanDesignPattern') {
+    group('design-pattern')
+    dependsOn gradle.includedBuild('design-pattern').task(':iljava:clean')
+    dependsOn gradle.includedBuild('design-pattern').task(':ilgroovy:clean')
+}
+
+tasks.register('buildDesignPattern') {
+    group('design-pattern')
+    dependsOn gradle.includedBuild('design-pattern').task(':iljava:build')
+    dependsOn gradle.includedBuild('design-pattern').task(':ilgroovy:build')
+}
+
+tasks.register('clean') {
+    group('build')
+    dependsOn('cleanDesignPattern')
+}
+
+tasks.register('build') {
+    group('build')
+    dependsOn('buildDesignPattern')
+}
