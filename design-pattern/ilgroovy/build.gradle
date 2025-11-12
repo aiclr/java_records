@@ -73,3 +73,9 @@ test {
 //        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
 //    }
 }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
