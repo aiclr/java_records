@@ -1,5 +1,5 @@
 [versions]
-logback-classic = "1.5.18"
+logback-classic = "1.5.19"
 groovy = "4.0.27"
 ivy = "2.5.3"
 junit4 = "4.13.2"
